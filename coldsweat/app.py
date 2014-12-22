@@ -6,7 +6,9 @@ Copyright (c) 2013—2014 Andrea Peltrin
 Portions are copyright (c) 2013 Rui Carmo
 License: MIT (see LICENSE for details)
 '''
-import sys, os, re
+import sys
+import os
+import re
 from traceback import format_tb
 
 from webob import Request, Response
@@ -17,84 +19,92 @@ from models import connect
 from coldsweat import logger, config, installation_dir
 
 # Figure out static dir, if given
-STATIC_URL = config.get('web', 'static_url') if config.has_option('web', 'static_url') else ''
+STATIC_URL = config.get('web', 'static_url') if config.has_option(
+    'web', 'static_url') else ''
 
 
 # ------------------------------------------------------
 # Decorators
 # ------------------------------------------------------
 
-def on(pattern, http_methods):    
-    def wrapper(handler):         
+def on(pattern, http_methods):
+    def wrapper(handler):
         handler.pattern = re.compile(pattern, re.U)
         handler.http_methods = [m.upper() for m in http_methods]
-        return handler         
-    return wrapper  
+        return handler
+    return wrapper
 
-def GET(pattern='^/$'):    
-    return on(pattern, ('get', ))  
 
-def POST(pattern='^/$'):    
-    return on(pattern, ('post', ))  
+def GET(pattern='^/$'):
+    return on(pattern, ('get', ))
+
+
+def POST(pattern='^/$'):
+    return on(pattern, ('post', ))
 
 # Handler for both GET and POST requests
-def form(pattern='^/$'):    
-    return on(pattern, ('get', 'post'))  
+
+
+def form(pattern='^/$'):
+    return on(pattern, ('get', 'post'))
 
 # ------------------------------------------------------
 # Base WSGI app
 # ------------------------------------------------------
 
-    
+
 class WSGIApp(object):
 
     def __call__(self, environ, start_response):
-        
+
         self.request = Request(environ)
-        
+
         handler, args = self.find_handler()
         if not handler:
-            raise HTTPNotFound('No handler defined for %s (%s)' % (self.request.path_info, self.request.method))  
+            raise HTTPNotFound('No handler defined for %s (%s)' % (
+                self.request.path_info, self.request.method))
         if not args:
-            args = ()        
+            args = ()
 
         # Prepare database connection
         connect()
-        
+
         response = handler(self, self.request, *args)
         if not response:
-            response = Response() # Provide an empty response
+            response = Response()  # Provide an empty response
 
         return response(environ, start_response)
-    
+
     def find_handler(self):
-    
+
         # Sanity check
         try:
             self.request.path_info
         except KeyError:
             self.request.path_info = ''
-                       
-        for name, handler in self.__class__.__dict__.items():        
+
+        for name, handler in self.__class__.__dict__.items():
             if not hasattr(handler, 'pattern'):
                 continue
 
-            match = handler.pattern.match(self.request.path_info)            
-            if match and self.request.method in handler.http_methods:                    
+            match = handler.pattern.match(self.request.path_info)
+            if match and self.request.method in handler.http_methods:
                 return handler, match.groups()
-    
+
         return None, None
 
- 
+
 # ------------------------------------------------------
 # Exception middleware
 # ------------------------------------------------------
 
 class ExceptionMiddleware(object):
+
     '''
-    WSGI middleware which sends out an exception traceback 
+    WSGI middleware which sends out an exception traceback
       if something goes wrong. See: http://bit.ly/hQd5b1
     '''
+
     def __init__(self, app):
         self.app = app
 
@@ -108,34 +118,34 @@ class ExceptionMiddleware(object):
         #   unchanged and catch relevant HTTP exceptions
         try:
             app_iter = self.app(environ, start_response)
-        except (HTTPClientError, HTTPRedirection), exc:        
-            app_iter = exc(environ, start_response)            
+        except (HTTPClientError, HTTPRedirection), exc:
+            app_iter = exc(environ, start_response)
         # If an exception occours we get the exception information
         #   and prepare a traceback we can render
-        except Exception:        
+        except Exception:
             exc_type, exc_value, tb = sys.exc_info()
             traceback = ['Traceback (most recent call last):']
             traceback += format_tb(tb)
             traceback.append('%s: %s' % (exc_type.__name__, exc_value))
-            # We might have not a stated response by now. Try to  
+            # We might have not a stated response by now. Try to
             #   start one with the status code 500 or ignore any
             #   raised exception if the application already
-            #   started one            
+            #   started one
             try:
                 start_response('500 Internal Server Error', [
                                ('Content-Type', 'text/plain')])
             except Exception:
                 pass
-            
-            traceback = '\n'.join(traceback)            
+
+            traceback = '\n'.join(traceback)
             logger.error(traceback)
-                        
+
             yield traceback
-        
+
         for item in app_iter:
             yield item
 
-        # Returned iterable might have a close function. 
+        # Returned iterable might have a close function.
         #   If it exists it *must* be called
         if hasattr(app_iter, 'close'):
             app_iter.close()
@@ -149,6 +159,6 @@ from fever import fever_app
 from frontend import frontend_app
 from cascade import Cascade
 
+
 def setup_app():
     return ExceptionMiddleware(Cascade([fever_app, frontend_app]))
-

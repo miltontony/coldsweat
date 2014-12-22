@@ -22,7 +22,7 @@ from coldsweat import config, logger
 # Defer database init, see connect() below
 engine = config.get('database', 'engine')
 if engine == 'sqlite':
-    _db = SqliteDatabase(None, threadlocals=True) 
+    _db = SqliteDatabase(None, threadlocals=True)
     migrator = SqliteMigrator(_db)
 elif engine == 'mysql':
     _db = MySQLDatabase(None)
@@ -39,7 +39,7 @@ else:
 
 class PickleField(BlobField):
     def db_value(self, value):
-        return super(PickleField, self).db_value(pickle.dumps(value, 2)) # Use newer protocol 
+        return super(PickleField, self).db_value(pickle.dumps(value, 2)) # Use newer protocol
 
     def python_value(self, value):
         return pickle.loads(value)
@@ -65,19 +65,19 @@ class CustomModel(BaseModel):
 class User(CustomModel):
     """
     Coldsweat user
-    """    
+    """
     DEFAULT_CREDENTIALS = 'coldsweat', 'coldsweat'
     MIN_PASSWORD_LENGTH = 8
 
     username            = CharField(unique=True)
-    password            = CharField()  
+    password            = CharField()
     email               = CharField(null=True)
     api_key             = CharField(unique=True)
-    is_enabled          = BooleanField(default=True) 
+    is_enabled          = BooleanField(default=True)
 
     class Meta:
         db_table = 'users'
-    
+
     #@@FIXME: we should use email instead as Fever API dictates
     @staticmethod
     def make_api_key(username, password):
@@ -86,9 +86,9 @@ class User(CustomModel):
     @staticmethod
     def validate_credentials(username, password):
         try:
-            user = User.get((User.username == username) & 
-                (User.password == password) & 
-                (User.is_enabled == True))        
+            user = User.get((User.username == username) &
+                (User.password == password) &
+                (User.is_enabled == True))
         except User.DoesNotExist:
             return None
 
@@ -98,64 +98,64 @@ class User(CustomModel):
     def validate_api_key(api_key):
         try:
             # Clients may send api_key in uppercase, lower() it
-            user = User.get((User.api_key == api_key.lower()) & 
-                (User.is_enabled == True))        
+            user = User.get((User.api_key == api_key.lower()) &
+                (User.is_enabled == True))
         except User.DoesNotExist:
             return None
 
         return user
-    
+
     @staticmethod
     def validate_password(password):
         #@@TODO: Check for unacceptable chars
         return len(password) >= User.MIN_PASSWORD_LENGTH
-        
+
 @pre_save(sender=User)
 def on_save_handler(model, user, created):
      user.api_key = User.make_api_key(user.username, user.password)
-          
+
 
 #@@REMOVEME: We keep this only to make migrations work
 class Icon(CustomModel):
     """
     Feed (fav)icons, stored as data URIs
     """
-    data                = TextField() 
+    data                = TextField()
 
     class Meta:
         db_table = 'icons'
-      
+
 
 class Group(CustomModel):
     """
     Feed group/folder
     """
     DEFAULT_GROUP = 'Default'
-    
+
     title               = CharField(unique=True)
-    
-    class Meta:  
+
+    class Meta:
         order_by = ('title',)
-        db_table = 'groups'    
+        db_table = 'groups'
 
 
 class Feed(CustomModel):
     """
     Atom/RSS feed
     """
-    
+
     is_enabled           = BooleanField(default=True)        # Fetch feed?
     self_link            = CharField()                       # The URL of the feed itself (rel=self)
     error_count          = IntegerField(default=0)
 
     # Nullable
 
-    title                = CharField(null=True)        
+    title                = CharField(null=True)
     alternate_link       = CharField(null=True)              # The URL of the HTML page associated with the feed (rel=alternate)
     etag                 = CharField(null=True)              # HTTP E-tag
     last_updated_on      = DateTimeField(null=True)          # As UTC
-    last_checked_on      = DateTimeField(null=True)          # As UTC 
-    last_status          = IntegerField(null=True)           # Last returned HTTP code    
+    last_checked_on      = DateTimeField(null=True)          # As UTC
+    last_status          = IntegerField(null=True)           # Last returned HTTP code
 
     icon                 = TextField(null=True)              # Stored as data URI
     icon_last_updated_on = DateTimeField(null=True)          # As UTC
@@ -171,9 +171,9 @@ class Feed(CustomModel):
     @property
     def last_updated_on_as_epoch(self):
         # Never updated?
-        if self.last_updated_on: 
+        if self.last_updated_on:
             return datetime_as_epoch(self.last_updated_on)
-        return 0 
+        return 0
 
 class Entry(CustomModel):
     """
@@ -182,7 +182,7 @@ class Entry(CustomModel):
 
     guid            = CharField()                               # 'id' in Atom parlance
     feed            = ForeignKeyField(Feed, on_delete='CASCADE')
-    title           = CharField()    
+    title           = TextField()
     content_type    = CharField(default='text/html')
     content         = TextField()
     #@@TODO: rename to published_on
@@ -190,8 +190,8 @@ class Entry(CustomModel):
 
     # Nullable
     author          = CharField(null=True)
-    link            = CharField(null=True)    
-    
+    link            = TextField(null=True)
+
     class Meta:
         indexes = (
             (('guid',), False),
@@ -203,14 +203,14 @@ class Entry(CustomModel):
     def last_updated_on_as_epoch(self):
         return datetime_as_epoch(self.last_updated_on)
 
-                
+
 class Saved(CustomModel):
     """
-    Entries 'saved' status 
+    Entries 'saved' status
     """
     user            = ForeignKeyField(User)
-    entry           = ForeignKeyField(Entry, on_delete='CASCADE')    
-    saved_on        = DateTimeField(default=datetime.utcnow)  
+    entry           = ForeignKeyField(Entry, on_delete='CASCADE')
+    saved_on        = DateTimeField(default=datetime.utcnow)
 
     class Meta:
         indexes = (
@@ -220,11 +220,11 @@ class Saved(CustomModel):
 
 class Read(CustomModel):
     """
-    Entries 'read' status 
+    Entries 'read' status
     """
     user           = ForeignKeyField(User)
-    entry          = ForeignKeyField(Entry, on_delete='CASCADE')    
-    read_on        = DateTimeField(default=datetime.utcnow) 
+    entry          = ForeignKeyField(Entry, on_delete='CASCADE')
+    read_on        = DateTimeField(default=datetime.utcnow)
 
     class Meta:
         indexes = (
@@ -243,23 +243,23 @@ class Subscription(CustomModel):
     class Meta:
         indexes = (
             (('user', 'group', 'feed'), True),
-        )    
+        )
         db_table = 'subscriptions'
 
 
 class Session(CustomModel):
     """
     Web session
-    """    
+    """
     key             = CharField()
-    value           = PickleField()     
+    value           = PickleField()
     expires_on      = DateTimeField()
 
     class Meta:
         indexes = (
             (('key', ), True),
-        )  
-        db_table = 'sessions' 
+        )
+        db_table = 'sessions'
 
 
 # ------------------------------------------------------
@@ -268,14 +268,14 @@ class Session(CustomModel):
 
 def _init_sqlite():
     filename = config.get('database', 'filename')
-    _db.init(filename)    
+    _db.init(filename)
 
 def _init_mysql():
     database = config.get('database', 'database')
     kwargs = dict(
         host        = config.get('database', 'hostname'),
         user        = config.get('database', 'username'),
-        passwd      = config.get('database', 'password')        
+        passwd      = config.get('database', 'password')
     )
     _db.init(database, **kwargs)
 
@@ -284,7 +284,7 @@ def _init_postgresql():
     kwargs = dict(
         host        = config.get('database', 'hostname'),
         user        = config.get('database', 'username'),
-        password    = config.get('database', 'password')        
+        password    = config.get('database', 'password')
     )
     _db.init(database, **kwargs)
 
@@ -292,11 +292,11 @@ def connect():
     """
     Shortcut to init and connect to database
     """
-    
+
     engines = {
         'sqlite'    : _init_sqlite,
         'mysql'     : _init_mysql,
-        'postgresql': _init_postgresql,        
+        'postgresql': _init_postgresql,
     }
     engines[engine]()
     _db.connect()
@@ -305,8 +305,8 @@ def transaction():
     return _db.transaction()
 
 def close():
-    try: 
-        # Attempt to close database connection 
+    try:
+        # Attempt to close database connection
         _db.close()
     except ProgrammingError, exc:
         logger.error('caught exception while closing database connection: %s' % exc)
@@ -317,7 +317,7 @@ def migrate_database_schema():
     Migrate database schema from previous versions (0.9.4 and up)
     '''
     drop_table_migrations, column_migrations = [], []
-    
+
     # Version 0.9.4 --------------------------------------------------------------
 
     # Change columns
@@ -330,7 +330,7 @@ def migrate_database_schema():
 
     if not Feed.field_exists('icon_last_updated_on'):
         column_migrations.append(migrator.add_column('feeds', 'icon_last_updated_on', Feed.icon_last_updated_on))
-        
+
     if not Entry.field_exists('content_type'):
         column_migrations.append(migrator.add_column('entries', 'content_type', Entry.content_type))
 
@@ -338,14 +338,14 @@ def migrate_database_schema():
 
     if Icon.table_exists():
         drop_table_migrations.append(Icon.drop_table)
-        
+
     # ----------------------------------------------------------------------------
 
     # Run all table and column migrations
 
     if column_migrations:
         # Let caller to catch any OperationalError's
-        migrate(*column_migrations)        
+        migrate(*column_migrations)
 
     for drop in drop_table_migrations:
         drop()
@@ -361,7 +361,7 @@ def setup():
 
     models = User, Feed, Entry, Group, Read, Saved, Subscription, Session
 
-    # WAL mode is persistent, so we can to setup 
+    # WAL mode is persistent, so we can to setup
     #   it once - see http://www.sqlite.org/wal.html
     if engine == 'sqlite':
         _db.execute_sql('PRAGMA journal_mode=WAL')
@@ -371,9 +371,9 @@ def setup():
 
     # Create the bare minimum to boostrap system
     with transaction():
-        
+
         # Avoid duplicated default group
         try:
-            Group.create(title=Group.DEFAULT_GROUP)        
+            Group.create(title=Group.DEFAULT_GROUP)
         except IntegrityError:
             return

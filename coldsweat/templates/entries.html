@@ -7,8 +7,8 @@
                     {{if count and filter_class in ('unread',) }}
                         <a title="Mark all as read" data-toggle="tooltip" data-placement="bottom" href="{{application_url}}/entries/mark?all" data-remote-modal><i class="fa fa-check-square"></i></a>
                     {{elif count and feed_id and filter_class in ('feeds',) }}
-                        <a class="popover-trigger" data-container="body" href="#popover-content"><i class="fa fa-cog"></i> Manage</a>                        
-                    {{endif}}                    
+                        <a class="popover-trigger" data-container="body" href="#popover-content"><i class="fa fa-cog"></i> Manage</a>
+                    {{endif}}
                 </div>
                 <h2><span>{{panel_title|html}} › </span><time>{{date}}</time></h2>
             </li>
@@ -19,11 +19,16 @@
                     <img class="favicon" src="{{e.feed.icon|icon}}" width="16" height="16"  alt="*"><a href="{{application_url}}/entries/{{e.id}}?{{filter_name}}">{{e.title|html}}</a>
                 </h3>
                 <div class="meta dim">
+                    {{if e.content}}
+                        <div class="content">
+                            {{e.content}}
+                        </div>
+                    {{endif}}
                     <span class="feed">{{e.feed.title|html}}</span>
                     <span class="actions">
-                        {{if e.id in saved_ids}}<i class="save-trigger icon-saved fa" title="Unsave"></i>{{else}}<i class="save-trigger icon-unsaved fa" title="Save"></i>{{endif}}{{if e.id in read_ids}}<i class="read-trigger icon-read fa" title="Make as unread"></i>{{else}}<i class="read-trigger icon-unread fa" title="Mark as read"></i>{{endif}}                    
+                        {{if e.id in saved_ids}}<i class="save-trigger icon-saved fa" title="Unsave"></i>{{else}}<i class="save-trigger icon-unsaved fa" title="Save"></i>{{endif}}{{if e.id in read_ids}}<i class="read-trigger icon-read fa" title="Make as unread"></i>{{else}}<i class="read-trigger icon-unread fa" title="Mark as read"></i>{{endif}}
                     </span>
-                </div>                  
+                </div>
             </div>
         </li>
         {{py:prev_date = date}}
@@ -49,12 +54,12 @@
     {{render_entries()}}
 {{else}}
     {{inherit "index.html"}}
-     
+
     {{def panel_block}}
 
         {{if count}}
             <div class="panel-content">
-                <ul class="view list-view">                      
+                <ul class="view list-view">
                     {{render_entries()}}
                 </ul>
             </div>
@@ -64,7 +69,7 @@
                 No entries found.
             </div>
         {{endif}}
-    {{enddef}}    
+    {{enddef}}
 {{endif}}
 
 

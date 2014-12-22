@@ -11,4 +11,4 @@ Tempita==0.5.1
 #Mysql-python
 
 # Connect Coldsweat to a PostgreSQL database (optional)
-#psycopg2
+psycopg2
