@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 '''
-Coldsweat - Web RSS aggregator and reader compatible with the Fever API 
+Coldsweat - Web RSS aggregator and reader compatible with the Fever API
 
 Copyright (c) 2013—2014 Andrea Peltrin
 Portions are copyright (c) 2013 Rui Carmo
@@ -8,7 +8,7 @@ License: MIT (see LICENSE for details)
 '''
 
 __author__ = 'Andrea Peltrin and Rui Carmo'
-__version__ = (0, 9, 4, '')
+__version__ = (1, 0, 1, '')
 __license__ = 'MIT'
 
 from os import path
@@ -34,10 +34,10 @@ __all__ = [
 ]
 
 VERSION_STRING = '%d.%d.%d%s' % __version__
-         
-# Figure out installation directory. This has 
+
+# Figure out installation directory. This has
 #  to work for the fetcher script too
-installation_dir, _ = path.split(path.dirname(path.abspath(__file__))) 
+installation_dir, _ = path.split(path.dirname(path.abspath(__file__)))
 template_dir        = path.join(installation_dir, 'coldsweat/templates')
 plugin_dir          = path.join(installation_dir, 'plugins')
 
@@ -55,8 +55,8 @@ else:
 # ------------------------------------------------------
 
 user_agent = 'Coldsweat/%s Feed Fetcher <http://lab.passiomatic.com/coldsweat/>' % VERSION_STRING
-if config.has_option('fetcher', 'user_agent'):  
-    user_agent = config.get('fetcher', 'user_agent')     
+if config.has_option('fetcher', 'user_agent'):
+    user_agent = config.get('fetcher', 'user_agent')
 
 # ------------------------------------------------------
 # Configure logger
@@ -72,12 +72,12 @@ logging.basicConfig(
 
 for module in 'peewee', 'requests':
     logging.getLogger(module).setLevel(logging.CRITICAL if log_level != 'DEBUG' else logging.WARN)
-        
+
 # Shared logger instance
 logger = logging.getLogger()
 
 # ------------------------------------------------------
-# Custom error codes 9xx & exceptions 
+# Custom error codes 9xx & exceptions
 # ------------------------------------------------------
 
 class DuplicatedFeedError(Exception):
@@ -90,7 +90,7 @@ class DuplicatedFeedError(Exception):
 #     title       = 'Too many errors'
 #     explanation =  'Feed has accomulated too many parsing and/or network errors.'
 
-for klass in (DuplicatedFeedError,): 
+for klass in (DuplicatedFeedError,):
     status_map[klass.code] = klass
 
 # ------------------------------------------------------
