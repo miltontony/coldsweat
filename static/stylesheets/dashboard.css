@@ -50,7 +50,7 @@ body {
  */
 
 .main {}
-    .main.panel-content ul.view{margin: 0px;}
+    .main .panel-content ul.view{margin: 0;}
 
 @media (min-width: 768px) {
   .main {padding-right: 40px;}
