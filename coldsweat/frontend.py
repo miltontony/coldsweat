@@ -87,7 +87,8 @@ class FrontendApp(WSGIApp):
 
     def _make_view_variables(self, user, request):
 
-        count, group_id, feed_id, filter_name, filter_class, panel_title, page_title = 0, 0, 0, '', '', '', ''
+        count, group_id, feed_id = 0, 0, 0
+        filter_name, filter_class, panel_title, page_title = '', '', '', ''
 
         groups = get_groups(user)
         r = Entry.select(Entry.id).join(
@@ -120,18 +121,19 @@ class FrontendApp(WSGIApp):
             filter_class = 'feeds'
             filter_name = 'feed=%s' % feed_id
             page_title = feed.title
-        elif 'all' in request.GET:
+        else:
             count, q = get_all_entries(
                 user, Entry.id).count(), get_all_entries(user)
             panel_title = 'All'
             filter_class = filter_name = 'all'
             page_title = 'All'
-        else:  # Default
-            count, q = get_unread_entries(
-                user, Entry.id).count(), get_unread_entries(user)
-            panel_title = 'Unread'
-            filter_class = filter_name = 'unread'
-            page_title = 'Unread'
+
+        # else:  # Default
+        #    count, q = get_unread_entries(
+        #        user, Entry.id).count(), get_unread_entries(user)
+        #    panel_title = 'Unread'
+        #    filter_class = filter_name = 'unread'
+        #    page_title = 'Unread'
 
         # Cleanup namespace
         del r, s, self
