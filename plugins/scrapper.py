@@ -51,10 +51,10 @@ def scrape(url):
 def update_fulltext(entry):
     fulltext = scrape(entry.link)
 
-    if entry.fulltext:
+    if fulltext:
         ratio = fuzz.token_set_ratio(
             get_unicode(entry.content),
-            get_unicode(entry.fulltext))
+            get_unicode(fulltext))
         if ratio >= 80:
             entry.fulltext = fulltext
             logger.info('Scraped: %s' % entry.link)
