@@ -52,7 +52,7 @@ Copyright (c) 2013–2014 Andrea Peltrin
 {{py:groups_s = sorted(groups, key=lambda x:x.id)}}
 <div class="container-fluid container">
   <div class="row">
-    <div class="col-sm-3 col-md-2 sidebar">
+    <div class="col-sm-3 col-md-3 sidebar">
       <ul id="tabs" class="nav nav-sidebar">
         <li class="{{if group_id == 0}}active{{endif}}"><a href="{{application_url}}/entries/?all">All</a></li>
           {{for loop, g in looper(groups_s)}}
@@ -65,7 +65,7 @@ Copyright (c) 2013–2014 Andrea Peltrin
         &copy; TonyM Productions 2014
       </div>
     </div>
-    <div class="col-sm-9 col-md-10 main">
+    <div class="col-sm-9 col-md-9 main">
         {{alert_message|alert}}
       {{self.container_block}}
     </div>
