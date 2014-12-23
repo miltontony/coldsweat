@@ -41,7 +41,7 @@ body {
 }
 
 /* Sidebar navigation */
-.nav-sidebar {margin-left: 0; padding-left: 0;}
+.nav-sidebar {margin-left: 0; padding-right: 0;}
     .nav-sidebar > li > a {padding-right: 20px;padding-left: 20px;}
     .nav-sidebar > .active > a {color: #fff;background-color: #068;}
     .nav-sidebar > li > a:hover, .nav-sidebar > li > a:focus{background-color: #069;}
