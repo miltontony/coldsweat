@@ -51,12 +51,13 @@ body {
  * Main content
  */
 
-.main {}
+.main {padding-left: 0}
     .main .panel-content ul.view{margin: 0;}
 
 @media (min-width: 768px) {
-  .main {padding-right: 40px;}
+    .main {}
 }
+
 .main .page-header {
   margin-top: 0;
 }
