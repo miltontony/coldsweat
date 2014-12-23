@@ -32,12 +32,13 @@
                     {{if entry.content}}
                         <div class="content">
                             {{entry.content}}
-
-                            {{if entry.fulltext}}
-                                <br/>
-                                {{entry.fulltext}}
-                            {{endif}}
                         </div>
+                        {{if entry.fulltext}}
+                            <br/>
+                            <div class="content">
+                            {{entry.fulltext}}
+                            </div>
+                        {{endif}}
                     {{endif}}
 
                     {{if entry.link}}
