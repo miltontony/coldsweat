@@ -70,7 +70,8 @@ body {
  * Main content
  */
 
- .main {padding-left: 100px;}
+.main {padding-left: 100px;}
+    .main.panel-content ul.view{margin: 0px;}
 
 @media (min-width: 768px) {
   .main {padding-right: 40px;}
