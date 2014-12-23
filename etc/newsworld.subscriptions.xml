@@ -10,8 +10,7 @@
 
             <outline text="news24.com" title="news24.com"
                 type="rss" xmlUrl="http://feeds.news24.com/articles/news24/SouthAfrica/rss" htmlUrl="http://news24.com/"/>
-            <outline text="timeslive.co.za" title="timeslive.co.za"
-                type="rss" xmlUrl="http://www.timeslive.co.za/?service=rss" htmlUrl="http://www.timeslive.co.za/"/>
+
         </outline>
     </body>
 </opml>
