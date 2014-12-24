@@ -1,7 +1,7 @@
-/* 
+/*
 
 Built on Rock Hammer by Stuff and Nonsense
-URL: http://stuffandnonsense.co.uk/projects/rock-hammer/ 
+URL: http://stuffandnonsense.co.uk/projects/rock-hammer/
 
 */
 
@@ -13,20 +13,20 @@ $navwidth                : 52px;
 @import 'imports';
 
 .dim {
-    color: $lightneutralcolor;    
+    color: $lightneutralcolor;
 
     a {
-    color: $lightneutralcolor;    
-    
+    color: $lightneutralcolor;
+
     &:visited {
     color : $lightneutralcolor; }
-    
+
     &:hover {
     color : $linkcolorhover; }
-    
+
     &:focus {
     color : $linkcolorfocus; }
-    }    
+    }
 }
 
 
@@ -37,16 +37,16 @@ $navwidth                : 52px;
     }
 
     .icon-saved {
-        color: #ebcd0c; 
+        color: #ebcd0c;
     }
-}             
+}
 
 .expanded {
     .meta {
         .feed {
             text-transform: uppercase;
             @extend .spaced;
-        }        
+        }
         .actions {
             float: right;
         }
@@ -59,7 +59,7 @@ $navwidth                : 52px;
 }
 
 .tooltip {
-    white-space: nowrap;           
+    white-space: nowrap;
     &.bottom { margin-bottom: 7px; }
 }
 
@@ -69,7 +69,7 @@ $navwidth                : 52px;
 }
 
 .module {
-    max-width: $fullwidth; 
+    max-width: $fullwidth;
     margin: 0 auto $baselineheight auto;
     h2 { margin-top: 0; } // Title
 }
@@ -88,7 +88,7 @@ $navwidth                : 52px;
         @include zero;
         max-width: $fullwidth;
         margin: 0 auto;
-        
+
         > li {
             @include zero;
 
@@ -103,48 +103,48 @@ $navwidth                : 52px;
                 }
 
                 h2 {
-                    @extend .h4;                    
+                    @extend .h4;
                     text-transform: uppercase;
                     color: $lightneutralcolor;
                     letter-spacing: 1px;
                     span { display: none; }
-                }                
+                }
 
                 // Show feed name on first heading only
                 &:first-child h2 span {
-                    display: inline; 
+                    display: inline;
                 }
-                
+
                 .toolbar {
                     float: right;
                     display: none;
                 }
-                
+
                 // Show on first heading only
                 &:first-child .toolbar {
-                    display: block; 
+                    display: block;
                 }
             }
-            
+
             .item-inner {
                 background: $white;
                 //@include transition(background .1s ease-out);
-                padding: $baselineheight/2 $gutterwidth*1.5; 
+                padding: $baselineheight/2 $gutterwidth*1.5;
 
                 // Title
-        
+
                 > h3 {
                     a { display: block; }
                 }
-    
+
                 .favicon {
                     float: left;
                     margin: 4px 0 0 (-$gutterwidth);
                 }
-            }        
+            }
 
             // Feeds
-            
+
             &.status-disabled {
 
                 .item-inner {
@@ -152,14 +152,14 @@ $navwidth                : 52px;
                     h3 {
                         text-decoration: line-through;
                     }
-                }                                
+                }
             }
 
             &.status-sick {
 
                 .item-inner {
                     background-color: $warningcolor;
-                }                                
+                }
             }
 
 
@@ -168,12 +168,12 @@ $navwidth                : 52px;
         .more {
             clear:both;
             text-align: center;
-            padding: $baselineheight/2 0;                           
+            padding: $baselineheight/2 0;
             a {
                 width: 100%;
                 display: inline-block;
             }
-        }        
+        }
 
     }
 
@@ -181,14 +181,14 @@ $navwidth                : 52px;
 
     ul.list-view {
 
-        @include box-shadow(0 0 4px $lightneutralcolor);                        
+        @include box-shadow(0 0 4px $lightneutralcolor);
 
-                
-        > li {  
-        
+
+        > li {
+
             &:not(.expanded) .actions {
                 opacity: 0;
-                @include visuallyhidden;                
+                @include visuallyhidden;
                 @include transition(opacity .15s ease-out);
             }
 
@@ -196,21 +196,18 @@ $navwidth                : 52px;
                 .actions {
                     opacity: 1;
                     @include visible;
-                }            
-                &:not(.expanded) .feed {
-                    @include hidden;              
                 }
-            }    
-            
+            }
+
             .item-inner {
-                border-bottom: 1px solid $lightestneutralcolor;                       
+                border-bottom: 1px solid $lightestneutralcolor;
             }
 
             &.expanded .item-inner {
-                padding: $baselineheight $gutterwidth*1.5;    
-                border-bottom: none;                       
+                padding: $baselineheight $gutterwidth*1.5;
+                border-bottom: none;
             }
-                        
+
             &:first-child .item-inner {
                 border-top-left-radius: $borderradius;
                 border-top-right-radius: $borderradius;
@@ -220,18 +217,18 @@ $navwidth                : 52px;
                 border-bottom-left-radius: $borderradius;
                 border-bottom-right-radius: $borderradius;
             }
-            
+
             // Read, unread, etc.
-            
+
             .meta .icon-read {
                 display: none;
                 @extend .fa-circle-o;
-                margin-left: $gutterwidth/2;   
+                margin-left: $gutterwidth/2;
             }
 
             .meta .icon-unread {
                 @extend .fa-circle;
-                margin-left: $gutterwidth/2;   
+                margin-left: $gutterwidth/2;
             }
 
             .meta .icon-saved {
@@ -242,7 +239,7 @@ $navwidth                : 52px;
             .meta .icon-unsaved {
                 @extend .fa-star-o;
             }
-            
+
             &.status-read {
                 h3 {
                     a:link {
@@ -251,7 +248,7 @@ $navwidth                : 52px;
                     a:hover {
                         color: $linkcolorhover;
                     }
-                }                    
+                }
                 .meta .icon-read {
                     display: inline-block;
                 }
@@ -272,7 +269,7 @@ $navwidth                : 52px;
 
 /*
             &.current {
-                .item-inner {                    
+                .item-inner {
                     //background: #e1eef5 url(../images/rarr.png) left 14px  no-repeat;
                     background: #e1eef5;
                 }
@@ -288,10 +285,10 @@ $navwidth                : 52px;
         }
 
         .more {
-            background: $lightestneutralcolor;            
+            background: $lightestneutralcolor;
             border-bottom-left-radius: $borderradius;
             border-bottom-right-radius: $borderradius;
-        }        
+        }
 
     }
 
@@ -300,51 +297,51 @@ $navwidth                : 52px;
     ul.grid-view {
         @include clearfix;
 
-        //margin: 0 $gutterwidth 0 $gutterwidth*1.5;            
-    
-        > li.entry, 
+        //margin: 0 $gutterwidth 0 $gutterwidth*1.5;
+
+        > li.entry,
         > li.feed  {
             @include box-sizing(border-box);
-            padding-left: $gutterwidth/2;            
-            padding-right: $gutterwidth/2;            
+            padding-left: $gutterwidth/2;
+            padding-right: $gutterwidth/2;
 
             float: left;
             width: 50%;
             margin-bottom: $baselineheight;
-            
+
             .item-inner {
-                position: relative;                    
-                @include box-shadow(0 0 4px $lightneutralcolor);                
+                position: relative;
+                @include box-shadow(0 0 4px $lightneutralcolor);
                 min-height: 96px; // Three rows
                 border-radius: $borderradius;
 
                 .meta {
                     opacity: 0;
-                    @include visuallyhidden;                
+                    @include visuallyhidden;
                     @include transition(opacity .15s ease-out);
 
                     bottom: 0;
                     left: 0;
                     right: 0;
                     position: absolute;
-                    background: rgba($lightestneutralcolor, .8);                    
+                    background: rgba($lightestneutralcolor, .8);
                     padding: $baselineheight/4 0 $baselineheight/4 $gutterwidth*1.5;
                     border-bottom-right-radius: $borderradius;
                     border-bottom-left-radius: $borderradius;
-                    
+
                 }
             }
-            
+
             .item-inner:hover {
                 .meta {
                     opacity: 1;
-                    @include visible;                                        
+                    @include visible;
                     position: absolute;
                 }
             }
         }
 
-        
+
 
     }
 
@@ -354,23 +351,23 @@ $navwidth                : 52px;
 
 
 
-  
+
 footer[role="contentinfo"] {
     @include zero;
-    margin: $baselineheight*3 0 $baselineheight 0; 
-    text-align: center;    
+    margin: $baselineheight*3 0 $baselineheight 0;
+    text-align: center;
     .fa-heart {
         cursor: help;
     }
 }
 
-.page {    
+.page {
     max-width: $fullwidth;
     margin: $baselineheight/2 auto 0 auto;
     background: $white;
-    padding: $baselineheight $gutterwidth*1.5;   
-    @include box-shadow(0 0 4px $lightneutralcolor);    
-    border-radius: $borderradius;            
+    padding: $baselineheight $gutterwidth*1.5;
+    @include box-shadow(0 0 4px $lightneutralcolor);
+    border-radius: $borderradius;
 }
 
 dl.shortcuts {
@@ -379,17 +376,17 @@ dl.shortcuts {
 
     dt {
         margin: $baselineheight 0 $baselineheight/2 0;
-        text-transform: uppercase;            
+        text-transform: uppercase;
         letter-spacing: 2px;
         color: $lightneutralcolor;
         font-weight: bold;
     }
-    
+
     dd {
         margin-bottom: $baselineheight/2 !important;
     }
 }
-    
+
 // A keyboard shortcut
 
 kbd {
@@ -397,8 +394,8 @@ kbd {
     padding: 2px 0;
     width: 2em;
     display: inline-block;
-    background: $lightestneutralcolor; 
-    text-align: center;                            
+    background: $lightestneutralcolor;
+    text-align: center;
     border-radius: $borderradius;
     color: $neutralcolor;
     text-transform: uppercase;
@@ -407,7 +404,7 @@ kbd {
 
 
 pre {
-    background: $lightestneutralcolor;    
+    background: $lightestneutralcolor;
     border-radius: $borderradius;
     padding: 8px 4px;
 }
@@ -422,14 +419,14 @@ pre {
 // Messages taking all panel height
 .notice {
     text-align: center;
-    margin: 25% 0 20% 0;    
-    @extend .dim;    
+    margin: 25% 0 20% 0;
+    @extend .dim;
     i {
         display: block;
         opacity: .6;
-        margin: $baselineheight 0 0;        
+        margin: $baselineheight 0 0;
     }
-    
+
 }
 
 
@@ -439,19 +436,19 @@ pre {
     position: fixed;
     top: 50%;
     left: 50%;
-    margin-left: -3em;    
-    margin-top: -3em;    
+    margin-left: -3em;
+    margin-top: -3em;
     z-index: 3;
     width: 6em;
     padding: $baselineheight*2 $gutterwidth*2;
 
-    border-radius: $borderradius;    
-    background: rgba($lightestneutralcolor, .85);        
-    text-align: center;    
+    border-radius: $borderradius;
+    background: rgba($lightestneutralcolor, .85);
+    text-align: center;
 }
 
 .loading {
-    text-align: center;    
+    text-align: center;
     color: $neutralcolor;
     //margin: $baselineheight/2 0;
 }
@@ -460,60 +457,60 @@ pre {
 
 article {
     @include clearfix;
-    .content {        
+    .content {
 
-    
+
         // Headings
 
         h1 { border: none; }
-        
-        // Other block-level elements 
-        
+
+        // Other block-level elements
+
         p, blockquote, figure, table, ul, ol, dl {
             @include zero;
-            margin: $baselineheight/2 0;        
+            margin: $baselineheight/2 0;
             &:first-child {
                 margin-top: 0;
             }
         }
-        
-        blockquote { 
-            color: $secondarycolor;        
+
+        blockquote {
+            color: $secondarycolor;
             padding: 0 $gutterwidth;
             p:last-child {
                 margin-bottom: 0;
             }
         }
-    
-        // List items 
-        
+
+        // List items
+
         li, dd {
             @include zero;
-            margin: 0 0 $baselineheight/4 $gutterwidth;                
+            margin: 0 0 $baselineheight/4 $gutterwidth;
         }
-    
+
         // Images
-        
+
         img {
         }
-        
-        // Misc. 
-        
+
+        // Misc.
+
         hr {
-            margin: $baselineheight 0;        
+            margin: $baselineheight 0;
         }
-        
+
         .continue {
             text-align: center;
             clear: both;
             margin: $baselineheight 0 0 0;
         }
-        
+
     }
-    
+
 }
-        
- 
+
+
 // Forms
 
 #modal-feed-edit {
@@ -524,44 +521,44 @@ article {
 
 
     th, td {
-        border-top-color: $lighterneutralcolor; 
+        border-top-color: $lighterneutralcolor;
     }
 
     .enabled { color: $successcolor; }
     .disabled { color: $errorcolor; }
 
     code {
-        background: $lightestneutralcolor;    
+        background: $lightestneutralcolor;
         border-radius: $borderradius;
-        padding: 2px 4px;        
-    }    
-    
+        padding: 2px 4px;
+    }
+
     .favicon {
         vertical-align: baseline;
     }
 }
 
 
-nav { 
-    
+nav {
+
     position: fixed;
     top: 0;
     bottom: 0;
     z-index: 3;
-    
+
     background: $navigationbackgroundcolor;
 
      a {
-        color : $navigationlinkcolor;    
-        
+        color : $navigationlinkcolor;
+
         &:visited {
         color : $navigationlinkcolor; }
-        
+
         &:hover {
         text-decoration : none;
-        color : $navigationlinkcolorhover; 
+        color : $navigationlinkcolorhover;
         background: darken($navigationbackgroundcolor, 15%); }
-        
+
         &:focus {
         color : $navigationlinkcolorhover; }
     }
@@ -570,7 +567,7 @@ nav {
 
         @include zero;
         list-style: none;
-                
+
         > li {
             position: relative;
 
@@ -580,13 +577,13 @@ nav {
 
             &.branding {
                 color: $white;
-                background: darken($primarycolor, 10%);                        
-                padding: $baselineheight/4 $baselineheight/1.5;   
+                background: darken($primarycolor, 10%);
+                padding: $baselineheight/4 $baselineheight/1.5;
                 @include font-size(16);
                 text-transform: uppercase;
-                letter-spacing: 2px;                
+                letter-spacing: 2px;
             }
-    
+
             > a {
                 display: block;
                 @include font-size(16);
@@ -603,11 +600,11 @@ nav {
         li.filter-group {
             > a {
                 color: $white;
-                background: $neutralcolor;                  
+                background: $neutralcolor;
             }
         }
     }
-  
+
 } // nav
 
 
@@ -625,15 +622,15 @@ nav {
     background: $white;
     border: 1px solid $bordercolor;
     border-radius: $borderradius;
-    @include box-shadow(0 0 4px rgba($neutralcolor, .5));                        
+    @include box-shadow(0 0 4px rgba($neutralcolor, .5));
 
     a {
-        @include font-size(14);   
-        white-space: nowrap;                 
+        @include font-size(14);
+        white-space: nowrap;
         border-bottom: 1px solid $bordercolor;
-        
+
         &:hover {
-        color : $navigationlinkcolor; 
+        color : $navigationlinkcolor;
         background: $lightestneutralcolor }
     }
 
@@ -641,7 +638,7 @@ nav {
 }
 &.open {
     background: darken($navigationbackgroundcolor, 15%); // Like hover
-    // Show 
+    // Show
     .dropdown-menu { display: block; }
 }
 } // dropdown
