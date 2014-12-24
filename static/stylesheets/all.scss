@@ -197,6 +197,9 @@ $navwidth                : 52px;
                     opacity: 1;
                     @include visible;
                 }
+                // &:not(.expanded) .feed {
+                //     @include hidden;
+                // }
             }
 
             .item-inner {
