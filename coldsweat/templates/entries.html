@@ -25,9 +25,6 @@
                         </div>
                     {{endif}}
                     <span class="feed">{{e.feed.title|html}}</span>
-                    <span class="actions">
-                        {{if e.id in saved_ids}}<i class="save-trigger icon-saved fa" title="Unsave"></i>{{else}}<i class="save-trigger icon-unsaved fa" title="Save"></i>{{endif}}{{if e.id in read_ids}}<i class="read-trigger icon-read fa" title="Make as unread"></i>{{else}}<i class="read-trigger icon-unread fa" title="Mark as read"></i>{{endif}}
-                    </span>
                 </div>
             </div>
         </li>
