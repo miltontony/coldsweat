@@ -50,7 +50,7 @@ Copyright (c) 2013–2014 Andrea Peltrin
 </div>
 
 {{py:groups_s = sorted(groups, key=lambda x:x.id)}}
-<div class="container-fluid container">
+<div class="container-fluid">
   <div class="row">
     <div class="col-sm-3 col-md-3 sidebar">
       <ul id="tabs" class="nav nav-sidebar">
@@ -66,8 +66,12 @@ Copyright (c) 2013–2014 Andrea Peltrin
       </div>
     </div>
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-        {{alert_message|alert}}
-      {{self.container_block}}
+        <div class="row">
+            <div class="col-sm-10 col-md-8">
+            {{alert_message|alert}}
+            {{self.container_block}}
+            </div>
+        </div>
     </div>
   </div>
 </div>

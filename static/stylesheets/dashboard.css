@@ -71,9 +71,9 @@ body {
  * Main content
  */
 
-.main {
-  padding: 20px;
-}
+.main {padding: 20px;}
+    .main ul{list-style: none;}
+
 @media (min-width: 768px) {
   .main {
     padding-right: 40px;
