@@ -8,7 +8,7 @@ License: MIT (see LICENSE for details)
 '''
 
 __author__ = 'Andrea Peltrin and Rui Carmo'
-__version__ = (1, 0, 1, '')
+__version__ = (1, 0, 2, '')
 __license__ = 'MIT'
 
 from os import path
