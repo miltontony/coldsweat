@@ -30,7 +30,7 @@ body {
  */
 
 /* Hide for mobile, show later */
-.sidebar {
+.sidebar, .footer {
   display: none;
 }
 @media (min-width: 768px) {
@@ -47,6 +47,7 @@ body {
     background-color: #f5f5f5;
     border-right: 1px solid #eee;
   }
+  .footer{display: block;}
 }
 
 /* Sidebar navigation */

@@ -53,7 +53,7 @@ Copyright (c) 2013–2014 Andrea Peltrin
 <div class="container-fluid">
   <div class="row">
     <div class="col-sm-3 col-md-2 sidebar">
-      <ul id="tabs" class="nav nav-sidebar">
+      <ul class="nav nav-sidebar">
         <li class="{{if group_id == 0}}active{{endif}}"><a href="{{application_url}}/entries/?all">All</a></li>
           {{for loop, g in looper(groups_s)}}
             <li class="{{if g.id == group_id}}active{{endif}}">
