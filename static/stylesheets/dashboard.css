@@ -48,6 +48,7 @@ body {
     border-right: 1px solid #eee;
   }
   .footer{display: block;}
+  .navbar-nav{display: none;} /* Show for mobile only */
 }
 
 /* Sidebar navigation */
