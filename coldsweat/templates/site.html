@@ -34,6 +34,11 @@ Copyright (c) 2013–2014 Andrea Peltrin
 {{self.get.head_block}}
 </head>
 <body tabindex="1"> <!-- Make focusable -->
+{{py:
+from datetime import date
+today = date.today()
+groups_s = sorted(groups, key=lambda x:x.id)
+}}
 
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container-fluid">
@@ -46,12 +51,23 @@ Copyright (c) 2013–2014 Andrea Peltrin
       </button>
       <a class="navbar-brand" href="/">News World</a>
     </div>
+
+    <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+            <li class="{{if group_id == 0}}active{{endif}}"><a href="{{application_url}}/entries/?all">All</a></li>
+              {{for loop, g in looper(groups_s)}}
+                <li class="{{if g.id == group_id}}active{{endif}}">
+                    <a href="{{application_url}}/entries/?group={{g.id}}">{{g.title|html}}</a>
+                </li>
+            {{endfor}}
+        </ul>
+    </div>
   </div>
 </div>
 
-{{py:groups_s = sorted(groups, key=lambda x:x.id)}}
 <div class="container-fluid">
   <div class="row">
+
     <div class="col-sm-3 col-md-2 sidebar">
       <ul class="nav nav-sidebar">
         <li class="{{if group_id == 0}}active{{endif}}"><a href="{{application_url}}/entries/?all">All</a></li>
@@ -62,13 +78,9 @@ Copyright (c) 2013–2014 Andrea Peltrin
         {{endfor}}
       </ul>
       <div class="footer">
-{{py:
-from datetime import date
-today = date.today()
-}}
         &copy; <a target="_blank" href="http://tonym.co.za">TonyM</a> {{today.year}}
       </div>
-    </div>
+    </div><!-- end sidebar -->
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <div class="row">
             <div class="col-sm-10 col-md-8">
@@ -76,7 +88,7 @@ today = date.today()
             {{self.container_block}}
             </div>
         </div>
-    </div>
+    </div><!-- end main -->
   </div>
 </div>
 
